@@ -34,12 +34,24 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'camera_calibration_file',
             default_value='file://' + get_package_share_directory('usb_camera_driver') + '/config/camera.yaml'),
+        DeclareLaunchArgument(
+            'fps',
+            default_value='20.0'),
+        DeclareLaunchArgument(
+            'image_width',
+            default_value='640'),
+        DeclareLaunchArgument(
+            'image_height',
+            default_value='480'),
         Node(
             package='usb_camera_driver',
             executable='usb_camera_driver_node',
-            namespace='/camera',
+            namespace='/drone0/camera',
             parameters=[
-                {"camera_calibration_file": LaunchConfiguration('camera_calibration_file')}
+                {"camera_calibration_file": LaunchConfiguration('camera_calibration_file')},
+                {"fps": LaunchConfiguration('fps')},
+                {"image_width": LaunchConfiguration('image_width')},
+                {"image_height": LaunchConfiguration('image_height')}
             ]
         )
     ])
